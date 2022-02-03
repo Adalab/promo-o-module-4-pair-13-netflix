@@ -18,10 +18,19 @@ server.listen(serverPort, () => {
 // endpoints
 
 server.get('/movies', (req, res) => {
-  res.json({
+  const gender = req.query.gender;
+
+  // filter by gender
+  const filteredMovies = movies.filter((movie) =>
+    gender === '' ? true : movie.gender === gender
+  );
+
+  const response = {
     success: true,
-    movies: movies,
-  });
+    movies: filteredMovies,
+  };
+
+  res.json(response);
 });
 
 server.post('/login', (req, res) => {
