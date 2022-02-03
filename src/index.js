@@ -16,20 +16,36 @@ server.listen(serverPort, () => {
 });
 
 // endpoints
+
 server.get('/movies', (req, res) => {
   res.json({
     success: true,
     movies: movies,
   });
 });
+
 server.post('/login', (req, res) => {
-  console.log(req.body);
-  const foundUser = users.find((user) => user.email === req.body.email);
-  res.json({
-    success: true,
-    movies: movies,
-  });
+  const foundUser = users.find(
+    (user) =>
+      user.email === req.body.email && user.password === req.body.password
+  );
+
+  let response = {};
+  if (foundUser) {
+    response = {
+      success: true,
+      userId: foundUser.id,
+    };
+  } else {
+    response = {
+      success: false,
+      errorMessage: 'Usuaria/o no encontrada/o',
+    };
+  }
+  res.json(response);
 });
+
+// static servers
 
 const staticServerPath = './src/public-react';
 server.use(express.static(staticServerPath));

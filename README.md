@@ -10,7 +10,7 @@ Pareja 13 de pair programming:
 En la raíz del proyecto:
 
 1. Ejecutar `npm install`.
-1. Ejecutar `npm start` o `npm run dev`.
+2. Ejecutar `npm start` o `npm run dev`.
 
 El backend se arrancará en http://localhost:4000
 
@@ -19,9 +19,13 @@ El backend se arrancará en http://localhost:4000
 En la raíz del proyecto:
 
 1. Ejecutar `cd web`.
-1. Ejecutar `npm install`.
-1. Ejecutar `npm start` o `npm run dev`.
-1. Abrir la página http://localhost:3000
+2. Ejecutar `npm install`.
+3. Ejecutar `npm start` o `npm run dev`.
+4. Abrir la página http://localhost:3000
+
+### Cómo desplegar el entorno de producción
+
+`npm run publish-react`
 
 ## ¿Cuántos ejercicios hemos hecho?
 
@@ -43,9 +47,9 @@ Por favor marca a continuación los ejericios que hayais terminado:
 
 #### 4.3 Express JS II:
 
-- [ ] 1. Servidor de estáticos para React
-- [ ] 2. Servidor de estáticos para las fotos
-- [ ] 3. Peticiones POST con body params
+- [x] 1. Servidor de estáticos para React
+- [x] 2. Servidor de estáticos para las fotos
+- [x] 3. Peticiones POST con body params
 - [ ] 4. Mantener logada a la usuaria
 
 #### 4.4 Express JS III:
