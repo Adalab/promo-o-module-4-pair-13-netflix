@@ -25,7 +25,10 @@ En la raíz del proyecto:
 
 ### Cómo desplegar el entorno de producción
 
-`npm run publish-react`
+En la raíz del proyecto:
+
+1. Ejecutar `npm run publish-react`.
+2. Abrir la página http://localhost:4000
 
 ## ¿Cuántos ejercicios hemos hecho?
 
