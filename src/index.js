@@ -1,5 +1,8 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
+const movies = require('./data/movies.json');
+const users = require('./data/users.json');
 
 // create and config server
 const server = express();
@@ -16,21 +19,20 @@ server.listen(serverPort, () => {
 server.get('/movies', (req, res) => {
   res.json({
     success: true,
-    movies: [
-      {
-        id: '1',
-        title: 'Gambita de dama',
-        gender: 'Drama',
-        image:
-          '//beta.adalab.es/curso-intensivo-fullstack-recursos/apis/netflix-v1/images/gambito-de-dama.jpg',
-      },
-      {
-        id: '2',
-        title: 'Friends',
-        gender: 'Comedia',
-        image:
-          '//beta.adalab.es/curso-intensivo-fullstack-recursos/apis/netflix-v1/images/friends.jpg',
-      },
-    ],
+    movies: movies,
   });
 });
+server.post('/login', (req, res) => {
+  console.log(req.body);
+  const foundUser = users.find((user) => user.email === req.body.email);
+  res.json({
+    success: true,
+    movies: movies,
+  });
+});
+
+const staticServerPath = './src/public-react';
+server.use(express.static(staticServerPath));
+
+const staticServerPathImages = './src/public-movies-images';
+server.use(express.static(staticServerPathImages));

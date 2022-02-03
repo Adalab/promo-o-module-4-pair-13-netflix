@@ -1,0 +1,59 @@
+Script started on 2022-02-03 10:33:33+0100
+]0;vblanc@DESKTOP-JNEGGV6: /mnt/c/Users/Victoria/OneDrive/Escritorio/promo-o-module-4-pair-13-netflix[01;32mvblanc@DESKTOP-JNEGGV6[00m:[01;34m/mnt/c/Users/Victoria/OneDrive/Escritorio/promo-o-module-4-pair-13-netflix[00m$ npm run publish-react
+
+> adalab-netflix@1.0.0 publish-react /mnt/c/Users/Victoria/OneDrive/Escritorio/promo-o-module-4-pair-13-netflix
+> cd web && npm run build && cd .. && rm -rf ./src/public-react && mv ./web/build ./src/public-react
+
+
+> modulo-3-repaso-final@0.1.0 build /mnt/c/Users/Victoria/OneDrive/Escritorio/promo-o-module-4-pair-13-netflix/web
+> react-scripts build
+
+Creating an optimized production build...
+[32mCompiled successfully.[39m
+[32m[39m
+File sizes after gzip:
+
+  49.81 KB  [2mbuild/static/js/[22m[36m2.1489c49e.chunk.js[39m
+  2.53 KB   [2mbuild/static/js/[22m[36mmain.c325390a.chunk.js[39m
+  783 B     [2mbuild/static/js/[22m[36mruntime-main.54bfefe9.js[39m
+  285 B     [2mbuild/static/css/[22m[36mmain.c2405610.chunk.css[39m
+
+The project was built assuming it is hosted at [32m./[39m.
+You can control this with the [32mhomepage[39m field in your [36mpackage.json[39m.
+
+The [36mbuild[39m folder is ready to be deployed.
+
+Find out more about deployment here:
+
+  [33mhttps://cra.link/deployment[39m
+
+]0;vblanc@DESKTOP-JNEGGV6: /mnt/c/Users/Victoria/OneDrive/Escritorio/promo-o-module-4-pair-13-netflix[01;32mvblanc@DESKTOP-JNEGGV6[00m:[01;34m/mnt/c/Users/Victoria/OneDrive/Escritorio/promo-o-module-4-pair-13-netflix[00m$ npm run dev
+
+> adalab-netflix@1.0.0 dev /mnt/c/Users/Victoria/OneDrive/Escritorio/promo-o-module-4-pair-13-netflix
+> nodemon src/index.js
+
+[33m[nodemon] 2.0.15[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching path(s): *.*[39m
+[33m[nodemon] watching extensions: js,mjs,json[39m
+[32m[nodemon] starting `node src/index.js`[39m
+Server listening at http://localhost:4000
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node src/index.js`[39m
+Server listening at http://localhost:4000
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node src/index.js`[39m
+Server listening at http://localhost:4000
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node src/index.js`[39m
+/mnt/c/Users/Victoria/OneDrive/Escritorio/promo-o-module-4-pair-13-netflix/src/index.js:42
+const staticServerPath = './src/public-movies-images';
+      ^
+
+SyntaxError: Identifier 'staticServerPath' has already been declared
+[90m    at wrapSafe (internal/modules/cjs/loader.js:1001:16)[39m
+[90m    at Module._compile (internal/modules/cjs/loader.js:1049:27)[39m
+[90m    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)[39m
+[90m    at Module.load (internal/modules/cjs/loader.js:950:32)[39m
+[90m    at Function.Module._load (internal/modules/cjs/loader.js:790:12)[39m
+[90m    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_mai

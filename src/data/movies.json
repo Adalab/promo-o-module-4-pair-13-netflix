@@ -1,0 +1,23 @@
+[
+    {
+      "id": "1",
+      "title": "Gambita de dama",
+      "gender": "Drama",
+      "image":
+        "//localhost:4000/gambito-de-dama.jpg"
+    },
+    {
+      "id": "2",
+      "title": "Friends",
+     " gender": "Comedia",
+      "image":
+        "//localhost:4000/friends.jpg"
+    },
+    {
+        "id": "3",
+        "title": "Friends2",
+       " gender": "Comedia",
+        "image":
+          "//beta.adalab.es/curso-intensivo-fullstack-recursos/apis/netflix-v1/images/friends.jpg"
+      }
+  ]
