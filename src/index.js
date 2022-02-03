@@ -18,12 +18,20 @@ server.listen(serverPort, () => {
 // endpoints
 
 server.get('/movies', (req, res) => {
-  const gender = req.query.gender;
+  const genderFilter = req.query.gender;
+  const sortFilter = req.query.sort;
 
-  // filter by gender
-  const filteredMovies = movies.filter((movie) =>
-    gender === '' ? true : movie.gender === gender
-  );
+  const filteredMovies = movies
+    // filter by gender
+    .filter((movie) =>
+      genderFilter === '' ? true : genderFilter === movie.gender
+    )
+    // sort by name
+    .sort((a, b) =>
+      sortFilter === 'asc'
+        ? a.title.localeCompare(b.title)
+        : b.title.localeCompare(a.title)
+    );
 
   const response = {
     success: true,
