@@ -18,7 +18,7 @@ server.listen(serverPort, () => {
 });
 
 // init and config data base
-const db = new Database('./src/db/database.db', {
+const db = new DataBase('./src/db/database.db', {
   // comment next line to hide data base logs in console
   verbose: console.log,
 });
@@ -26,12 +26,22 @@ const db = new Database('./src/db/database.db', {
 // endpoints
 
 server.get('/movies', (req, res) => {
-  const query = db.prepare('SELECT * FROM movies');
-  const movies = query.all();
-  res.json({
-    success: true,
-    movies: movies,
-  });
+  const gender = req.query.gender;
+  if (gender) {
+    const query = db.prepare('SELECT * FROM movies WHERE gender = ? ');
+    const movies = query.all(gender);
+    res.json({
+      success: true,
+      movies: movies,
+    });
+  } else {
+    const queryAllMovies = db.prepare('SELECT * FROM movies');
+    const allMovies = queryAllMovies.all();
+    res.json({
+      success: true,
+      movies: allMovies,
+    });
+  }
 });
 
 server.post('/login', (req, res) => {
