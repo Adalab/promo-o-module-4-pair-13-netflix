@@ -3,6 +3,7 @@ const cors = require('cors');
 const path = require('path');
 const movies = require('./data/movies.json');
 const users = require('./data/users.json');
+const DataBase = require('better-sqlite3');
 
 // create and config server
 const server = express();
@@ -16,9 +17,17 @@ server.listen(serverPort, () => {
   console.log(`Server listening at http://localhost:${serverPort}`);
 });
 
+// init and config data base
+const db = new Database('./src/db/database.db', {
+  // comment next line to hide data base logs in console
+  verbose: console.log,
+});
+
 // endpoints
 
 server.get('/movies', (req, res) => {
+  const query = db.prepare('SELECT * FROM movies');
+  const movies = query.all();
   res.json({
     success: true,
     movies: movies,
