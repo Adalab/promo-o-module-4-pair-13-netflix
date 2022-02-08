@@ -48,9 +48,16 @@ server.get('/movies', (req, res) => {
 });
 
 server.get('/movie/:movieId', (req, res) => {
-  const foundMovie = movies.find((movie) => movie.id === req.params.movieId);
+  const id = req.params.movieId;
 
-  res.render('movie', foundMovie);
+  const query = db.prepare('SELECT * FROM movies WHERE id = ?');
+  const movie = query.get(id);
+
+  if (movie) {
+    res.render('movie', movie);
+  } else {
+    res.render('movie-not-found');
+  }
 });
 
 server.post('/login', (req, res) => {
