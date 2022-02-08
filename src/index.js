@@ -114,6 +114,41 @@ server.post('/sign-up', (req, res) => {
   }
 });
 
+server.post('/user/profile', (req, res) => {
+  const id = req.headers['user-id'];
+  const name = req.body.name;
+  const email = req.body.email;
+  const password = req.body.password;
+
+  if (id && name && email && password) {
+    const query = db.prepare(
+      'UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?'
+    );
+    const result = query.run(name, email, password, id);
+
+    if (result && result.changes === 1) {
+      res.json({ success: true });
+    } else {
+      res.json({ success: false });
+    }
+  } else {
+    res.json({ success: false });
+  }
+});
+
+server.get('/user/profile', (req, res) => {
+  const id = req.headers['user-id'];
+
+  if (id) {
+    const query = db.prepare('SELECT * FROM users WHERE id = ?');
+    const user = query.get(id);
+
+    if (user) {
+      res.json(user);
+    }
+  }
+});
+
 // static servers
 
 const staticServerPath = './src/public-react';
