@@ -2,6 +2,7 @@
 
 const sendLoginToApi = (data) => {
   console.log('Se están enviando datos al login:', data);
+
   return fetch('http://localhost:4000/login', {
     method: 'POST',
     headers: {
@@ -19,6 +20,7 @@ const sendLoginToApi = (data) => {
 
 const sendSingUpToApi = (data) => {
   console.log('Se están enviando datos al signup:', data);
+
   return fetch('http://localhost:4000/sign-up', {
     method: 'POST',
     headers: {
@@ -28,7 +30,6 @@ const sendSingUpToApi = (data) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       return data;
     });
 };

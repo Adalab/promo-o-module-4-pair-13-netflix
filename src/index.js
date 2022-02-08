@@ -1,9 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const movies = require('./data/movies.json');
-const users = require('./data/users.json');
 const DataBase = require('better-sqlite3');
+//const movies = require('./data/movies.json');
+//const users = require('./data/users.json');
 
 // create and config server
 const server = express();
@@ -27,9 +27,11 @@ const db = new DataBase('./src/db/database.db', {
 
 server.get('/movies', (req, res) => {
   const gender = req.query.gender;
+
   if (gender) {
-    const query = db.prepare('SELECT * FROM movies WHERE gender = ? ');
+    const query = db.prepare('SELECT * FROM movies WHERE gender = ?');
     const movies = query.all(gender);
+
     res.json({
       success: true,
       movies: movies,
@@ -37,6 +39,7 @@ server.get('/movies', (req, res) => {
   } else {
     const queryAllMovies = db.prepare('SELECT * FROM movies');
     const allMovies = queryAllMovies.all();
+
     res.json({
       success: true,
       movies: allMovies,
@@ -44,34 +47,39 @@ server.get('/movies', (req, res) => {
   }
 });
 
-server.post('/login', (req, res) => {
-  const foundUser = users.find(
-    (user) =>
-      user.email === req.body.email && user.password === req.body.password
-  );
-
-  let response = {};
-  if (foundUser) {
-    response = {
-      success: true,
-      userId: foundUser.id,
-    };
-  } else {
-    response = {
-      success: false,
-      errorMessage: 'Usuaria/o no encontrada/o',
-    };
-  }
-  res.json(response);
-});
-
 server.get('/movie/:movieId', (req, res) => {
-  console.log(req.params.movieId);
-
   const foundMovie = movies.find((movie) => movie.id === req.params.movieId);
-  console.log(foundMovie);
 
   res.render('movie', foundMovie);
+});
+
+server.post('/login', (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  if (email && password) {
+    const query = db.prepare(
+      'SELECT * FROM users WHERE email = ? AND password = ?'
+    );
+    const result = query.get(email, password);
+
+    if (result) {
+      res.json({
+        success: true,
+        userId: result.id,
+      });
+    } else {
+      res.json({
+        success: false,
+        errorMessage: 'Usuaria/o no encontrada/o',
+      });
+    }
+  } else {
+    res.json({
+      success: false,
+      errorMessage: 'Es obligatorio introducir todos los campos',
+    });
+  }
 });
 
 server.post('/sign-up', (req, res) => {
@@ -79,10 +87,10 @@ server.post('/sign-up', (req, res) => {
   const password = req.body.password;
 
   if (email && password) {
-    const queryEmail = db.prepare('SELECT email FROM users WHERE email = ? ');
-    const resultEmail = queryEmail.all(email);
+    const queryEmail = db.prepare('SELECT email FROM users WHERE email = ?');
+    const resultEmail = queryEmail.get(email);
 
-    if (resultEmail.length === 0) {
+    if (!resultEmail) {
       const query = db.prepare(
         'INSERT INTO users (email, password) VALUES (?, ?)'
       );
@@ -95,13 +103,13 @@ server.post('/sign-up', (req, res) => {
     } else {
       res.json({
         success: false,
-        error: 'el email ya existe',
+        errorMessage: 'El email ya existe',
       });
     }
   } else {
     res.json({
       success: false,
-      error: 'es obligatorio introductor email y contraseña',
+      errorMessage: 'Es obligatorio introducir todos los campos',
     });
   }
 });
