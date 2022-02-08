@@ -74,6 +74,38 @@ server.get('/movie/:movieId', (req, res) => {
   res.render('movie', foundMovie);
 });
 
+server.post('/sign-up', (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  if (email && password) {
+    const queryEmail = db.prepare('SELECT email FROM users WHERE email = ? ');
+    const resultEmail = queryEmail.all(email);
+
+    if (resultEmail.length === 0) {
+      const query = db.prepare(
+        'INSERT INTO users (email, password) VALUES (?, ?)'
+      );
+      const result = query.run(email, password);
+
+      res.json({
+        success: true,
+        userId: result.lastInsertRowid,
+      });
+    } else {
+      res.json({
+        success: false,
+        error: 'el email ya existe',
+      });
+    }
+  } else {
+    res.json({
+      success: false,
+      error: 'es obligatorio introductor email y contraseña',
+    });
+  }
+});
+
 // static servers
 
 const staticServerPath = './src/public-react';
