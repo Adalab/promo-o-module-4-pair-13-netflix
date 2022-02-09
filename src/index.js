@@ -115,10 +115,34 @@ server.post('/sign-up', (req, res) => {
 });
 
 server.get('/user/movies', (req, res) => {
-  res.json({
-    success: true,
-    movies: [],
-  });
+  const userId = req.header('user-id');
+  console.log(userId);
+
+  const movieIdsQuery = db.prepare(
+    'SELECT movieId FROM rel_movies_users WHERE userId = ?'
+  );
+  const movieIds = movieIdsQuery.all(userId);
+  console.log(movieIds);
+
+  if (movieIds.length > 0) {
+    const moviesIdsQuestions = movieIds.map((id) => '?').join(', ');
+    const moviesIdsNumbers = movieIds.map((movie) => movie.movieId);
+
+    const moviesQuery = db.prepare(
+      `SELECT * FROM movies WHERE id IN (${moviesIdsQuestions})`
+    );
+    const movies = moviesQuery.all(moviesIdsNumbers);
+
+    res.json({
+      success: true,
+      movies: movies,
+    });
+  } else {
+    res.json({
+      success: false,
+      errorMessage: 'No hay películas favoritas asociadas a este usuario',
+    });
+  }
 });
 
 // static servers
