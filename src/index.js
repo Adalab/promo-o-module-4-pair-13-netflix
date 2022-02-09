@@ -114,6 +114,13 @@ server.post('/sign-up', (req, res) => {
   }
 });
 
+server.get('/user/movies', (req, res) => {
+  res.json({
+    success: true,
+    movies: [],
+  });
+});
+
 // static servers
 
 const staticServerPath = './src/public-react';
